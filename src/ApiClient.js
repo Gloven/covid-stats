@@ -1,19 +1,17 @@
 class ApiClient {
   constructor() {
-    this.apiUrl = 'https://api.covid19api.com';
+    this.apiUrl = 'https://api.covid19api.com/';
   }
 
-  get(query = '') {
-    return this.request({ query, method: 'GET' });
+  get(url, query = '') {
+    return this.request({ url, query, method: 'GET' });
   }
 
   async request(params = {}) {
-    const { query, method } = params;
-
-    const url = `${this.apiUrl}/${query}`;
+    const { query, url, method } = params;
 
     try {
-      const response = await fetch(url, { method });
+      const response = await fetch(`${this.apiUrl}${url}${query}`, { method });
       return await response.json();
     } catch (error) {
       console.error(error);
