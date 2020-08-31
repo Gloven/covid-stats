@@ -1,15 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import ApiClient from '../ApiClient';
 
-const WorldPage = (props) => {
-  const { data } = props;
+const WorldPage = () => {
+  const api = new ApiClient();
 
-  console.log(data);
+  async function getList(cb) {
+    const data = await api.get('world');
+    cb(data);
+  }
 
-  return <h2>World Page</h2>;
-};
-WorldPage.propTypes = {
-  data: PropTypes.arrayOf.isRequired,
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getList(setData);
+  }, []);
+
+  return <h2>{data && JSON.stringify(data, null, 2)}</h2>;
 };
 
 export default WorldPage;

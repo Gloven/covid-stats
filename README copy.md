@@ -1,3 +1,0 @@
-
-COVID STAT APP
-======
